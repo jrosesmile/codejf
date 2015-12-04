@@ -1,0 +1,25 @@
+	public static String validateString(Scanner input, ArrayList<?> conditions) {
+		String index = "";
+		index = input.nextLine().toLowerCase();
+		while ((conditions.contains(index) == false)) {
+			System.out.println("Error! Please enter only " + conditions);
+			index = input.nextLine().toLowerCase();
+		}
+		conditions.clear();
+		return index;
+
+	}
+	
+	public static int validateInt(Scanner input, ArrayList<?> conditions) {
+		int index = 0;
+		index = input.nextInt();
+		while ((conditions.contains(index) == false)) {
+			System.out.println("Error! Please enter only " + conditions);
+			index = input.nextInt();
+		}
+		input.nextLine();
+		conditions.clear();
+		return index;
+
+	}
+
