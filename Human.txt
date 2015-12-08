@@ -1,0 +1,63 @@
+package playersClasses;
+
+import java.util.*;
+
+public class Human extends Player {
+	//declare variable
+	private int hWins;
+
+	//constructors
+	public Human() {
+		name = "name not set";
+	}
+
+	public Human(String name) {
+		this.name = name;
+	}
+
+	//setters
+	public void setWins(int hWins) {
+		this.hWins += hWins;
+	}
+
+	public void setWins() {
+		hWins = 0;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+
+	}
+	
+	//getters
+	public int getWins() {
+		return hWins;
+	}
+
+	@Override
+	public String getName() {
+
+		return name;
+	}
+	
+	//abstract method with return input from user
+	@Override
+	public String generateRoshambo() {
+		String play = "";
+		Scanner input = new Scanner(System.in);
+		ArrayList<String> ar = new ArrayList<>();
+		System.out.println("Enter your play(rock, paper, scissors):");
+		ar.add("rock");
+		ar.add("paper");
+		ar.add("scissors");
+		play = Validator.validateString(input, ar);
+		ar.clear();
+		return play;
+	}
+
+	
+
+	
+
+}

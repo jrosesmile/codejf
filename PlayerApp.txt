@@ -1,0 +1,171 @@
+package playerApplicationClasses;
+
+import java.util.*;
+import playersClasses.*;
+
+public class PlayerApp {
+	//objects
+	private static ArrayList<String> ar = new ArrayList<>();
+	private static Scanner input = new Scanner(System.in);
+	private static Human h = new Human();
+	private static PaulCrate pc = new PaulCrate();
+	private static Rocky r = new Rocky();
+	private static PlayerApp pa = new PlayerApp();
+	
+
+	//start method hold the function of the program
+	private void start() throws InterruptedException {
+		//declared variables
+		String loop = "", name = "", team = "", loop2 = "";
+
+		//prompt user for name,store it in variable, and set name
+			System.out.println("Enter your name:");
+			name = input.nextLine();
+			h.setName(name);
+		
+		//loop allows user to repeat 
+		do {
+			//prompt user for choice validate answer and store it in variable
+			System.out.println("Hey " + name + ". Would you like to play Rocky or Paul Crate(Rocky or PC)?");
+			ar.add("pc");
+			ar.add("rocky");
+			team = Validator.validateString(input, ar);
+			ar.clear();
+			
+			do{
+				//call method based on user choice
+				switch (team) {
+				case "pc":
+					playPC(name);
+					break;
+				case "rocky":
+					playRocky(name);
+					break;
+				}
+			//prompts user to play the same player, validates answer and stores it in a variable	
+			 System.out.println("Would you like to play this guy again(yes/no)?");
+			 ar.add("yes");
+			 ar.add("no");
+			 loop2 = Validator.validateString(input, ar);
+			 ar.clear();
+			 
+			 }
+			//condition for loop
+			 while(loop2.equalsIgnoreCase("yes"));
+			
+			//prints scores
+			System.out.println("\nScores:\n" + name + ": " 
+					+ h.getWins() + "\nPaul Crate: " 
+					+ pc.getWins() + "\nRocky: "
+					+ r.getWins()+"\n");
+			
+			//sets scores to zero
+			h.setWins();
+			r.setWins();
+			pc.setWins();
+
+			//prompts user to play the some other player, validates answer and stores it in a variable
+			System.out.println("Would you like to play some other guy(yes/no)?");
+			ar.add("yes");
+			ar.add("no");
+			loop = Validator.validateString(input, ar);
+			ar.clear();
+			
+		} 
+		//condition for loop
+		while (loop.equalsIgnoreCase("yes"));
+		
+		//end statement
+		System.out.println("Have a nice day!");
+	}
+
+	//method is call when user wants to play this player
+	private void playRocky(String name) throws InterruptedException {
+		//declare variable
+		String hu = "";
+		
+		//generate human play
+		hu = h.generateRoshambo();
+		
+		//print message from other player 
+		System.out.print("Hey " + name + ". I'm going to beat you! Here we go ");
+		Thread.sleep(1000);
+		System.out.print("1... ");
+		Thread.sleep(1000);
+		System.out.println("2...");
+		Thread.sleep(1500);
+	
+		//based on user answer results are displays and wins are tallied
+		if (hu.equalsIgnoreCase("rock")) {
+			System.out.println("Draw! You are both losers!");
+		}
+		if (hu.equalsIgnoreCase("paper")) {
+			System.out.println(name + " Wins!");
+			h.setWins(1);
+		}
+		if (hu.equalsIgnoreCase("scissors")) {
+			System.out.println(name + " Loses!");
+			r.setWins(1);
+		}
+
+	}
+
+	//method is call when user wants to play this player
+	private void playPC(String name) throws InterruptedException {
+		//declare variables
+		String hu = "", pcr = "";
+		
+		//get results of play
+		hu = h.generateRoshambo();
+		pcr = pc.generateRoshambo();
+
+		System.out.print("Hey " + name + ". I'm going to beat you! Here we go ");
+		Thread.sleep(1000);
+		System.out.print("1... ");
+		Thread.sleep(1000);
+		System.out.println("2...");
+		Thread.sleep(1500);
+		
+		//based on user answer results are displays and wins are tallied
+		if (hu.equalsIgnoreCase(pcr)) {
+			System.out.println("Draw! You are both losers!");
+		}
+		else {
+			if (hu.equalsIgnoreCase("rock") && pcr.equalsIgnoreCase("scissors")) {
+				System.out.println(name + " Wins!");
+				h.setWins(1);
+			} 
+			else if (hu.equalsIgnoreCase("rock") && pcr.equalsIgnoreCase("paper")) {
+				System.out.println(name + " Loses!");
+				pc.setWins(1);
+			} 
+			else if (hu.equalsIgnoreCase("paper") && pcr.equalsIgnoreCase("rock")) {
+				System.out.println(name + " Wins!");
+				h.setWins(1);
+			} 
+			else if (hu.equalsIgnoreCase("paper") && pcr.equalsIgnoreCase("scissors")) {
+				System.out.println(name + " Loses!");
+				pc.setWins(1);
+			}
+			else if (hu.equalsIgnoreCase("scissors") && pcr.equalsIgnoreCase("paper")) {
+				System.out.println(name + " Wins!");
+				h.setWins(1);
+			} 
+			else {
+				System.out.println(name + " Loses!");
+				pc.setWins(1);
+			}
+		}
+	}
+
+	//main prints welcome statement calls function method and closes scanner reference
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println("Welcome to Rock, Paper, Scissors!");
+		pa.start();
+		input.close();
+
+	}
+
+
+}
+

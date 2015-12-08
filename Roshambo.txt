@@ -1,0 +1,6 @@
+package playersClasses;
+
+public enum Roshambo {
+	rock,paper,scissors;
+	
+}

@@ -1,0 +1,13 @@
+package playersClasses;
+
+public abstract class Player {
+	//declared variables
+	 protected String name;
+	 protected String Roshambo;
+	 
+	 //declared method signatures
+	 public abstract String generateRoshambo();
+	 public abstract String getName();
+	 public abstract void setName(String name);
+ 
+}
